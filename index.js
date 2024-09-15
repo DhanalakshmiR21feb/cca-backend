@@ -1,9 +1,10 @@
 const express = require("express");
+require("dotenv").config();
 const nodemailer = require("nodemailer");
 const smtpTransport = require("nodemailer-smtp-transport");
 const cors = require("cors");
 const app = express();
-const port = process.env.PORT || 4040;
+const PORT = process.env.PORT;
 
 // Body parser middleware to parse JSON data from requests
 app.use(express.json());
@@ -19,18 +20,7 @@ app.use(cors(corsOptions));
 app.get("/", (req, res) => {
   res.send("Backend is running");
 });
-// Define an endpoint to send emails
-// let transporter = nodemailer.createTransport(
-//   smtpTransport({
-//     service: 'gmail',
-//     port: 465,
-//     // secure: true,
-//     auth: {
-//       user: 'tempmailhandler@gmail.com',
-//       pass: 'wsbi ipnn jwku euig'
-//     }
-//   })
-// )
+
 app.post("/send-email", (req, res) => {
   const { name, email, contactNo, course, message } = req.body;
   const transporter1 = nodemailer.createTransport({
@@ -224,6 +214,6 @@ app.post("/subscription-email", (req, res) => {
     }
   });
 });
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
